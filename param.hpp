@@ -57,10 +57,18 @@ class Param
 		 */
 		void setInputRedirect(char *newInputRedirect);
 		
-		// finish documentation
+		/**
+		 * Sets the filename for the output redirection.
+		 *
+		 * @param newOutputRedirect a string specifying the input redirect filename
+		 */
 		void setOutputRedirect(char *newOutputRedirect);
 		
-		// finish documentation
+		/**
+		 * Sets the status of if a command is running in the background 
+		 *
+		 * @param newBackground a int representing the background running status, 0 for false, 1 for true
+		 */ 
 		void setBackground(int newBackground);
 		
 		/**
@@ -70,13 +78,19 @@ class Param
 		 */
 		char* getInputRedirect();
 		
-		
-		// finish documentation 
+		/**
+		 * Returns the filename of the output redirection
+		 *
+		 * @return a string representing a filename
+		 */
 		char* getOutputRedirect();
 		
-		// finish documentation
+		/**
+		 * Return the status of if a command is runing in the background 
+		 *
+		 * @return a int representing the background running status, 0 for false, 1 for true
+		 */
 		int getBackground();
-		
 	
 		/**
 		 * Prints the information in the specified structure to standard out.
