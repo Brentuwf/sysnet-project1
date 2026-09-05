@@ -76,21 +76,21 @@ class Param
 		 *
 		 * @return a string representing a filename
 		 */
-		char* getInputRedirect();
+		char* getInputRedirect() const;
 		
 		/**
 		 * Returns the filename of the output redirection
 		 *
 		 * @return a string representing a filename
 		 */
-		char* getOutputRedirect();
+		char* getOutputRedirect() const;
 		
 		/**
 		 * Return the status of if a command is runing in the background 
 		 *
 		 * @return a int representing the background running status, 0 for false, 1 for true
 		 */
-		int getBackground();
+		int getBackground() const;
 	
 		/**
 		 * Prints the information in the specified structure to standard out.

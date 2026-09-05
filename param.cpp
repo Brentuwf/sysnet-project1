@@ -46,19 +46,19 @@ void Param::setBackground(int newBackground)
 	//finish this
 }
 
-char* Param::getInputRedirect()
+char* Param::getInputRedirect() const
 {
 	return inputRedirect;
 }
 		
 		
-char* Param::getOutputRedirect()
+char* Param::getOutputRedirect() const
 {
 	return outputRedirect; 
 }
 
 		
-int Param::getBackground()
+int Param::getBackground() const
 {
 	return background;
 }
