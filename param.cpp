@@ -15,7 +15,8 @@
 
 Param::Param() 
 {
-	inputRedirect = outputRedirect = NULL;
+	inputRedirect = NULL;
+	outputRedirect = NULL;
 	background = 0;
 	argumentCount = 0;
 }
@@ -33,17 +34,17 @@ char** Param::getArguments()
 
 void Param::setInputRedirect(char *newInputRedirect)
 {
-	//finish this
+	inputRedirect = newInputRedirect;	
 }
 
 void Param::setOutputRedirect(char *newOutputRedirect)
 {
-	//finish this
+	outputRedirect = newOutputRedirect;
 }
 		
 void Param::setBackground(int newBackground)
 {
-	//finish this
+	background = newBackground;
 }
 
 char* Param::getInputRedirect() const
