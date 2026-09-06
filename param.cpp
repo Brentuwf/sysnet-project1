@@ -26,13 +26,22 @@ Param::Param()
 
 Param::~Param() 
 {
-	for (int i = 0; i < MAXARGS; ++i)
+	for (int i = 0; i < argumentCount; ++i)
 		delete[] argumentVector[i];
 }
 
 void Param::addArgument(char *newArgument)
 {
-	// finish this
+	/* header guard to prevent adding nullptr */
+	if (newArgument == nullptr)
+		return;
+	
+	/* header guard to prevent going out of bounds or overiding the string terminator*/
+	if (argumentCount >= MAXARGS -1)
+		return;
+
+	argumentVector[argumentCount] = newArgument;
+	argumentCount++;
 }
 
 char** Param::getArguments()
