@@ -28,7 +28,7 @@ class Param
 		 * Constructs an empty Param object.
 		 */
 		Param(); 
-		
+
 		/**
 		 * Adds an argument string to the argument list in this object. This function
 		 * does not create a string copy of the original string. 
@@ -95,7 +95,7 @@ class Param
 		/**
 		 * Prints the information in the specified structure to standard out.
          	 */
-		void printParams();
+		void printParams() const;
 };
 
 #endif

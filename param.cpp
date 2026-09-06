@@ -65,7 +65,7 @@ int Param::getBackground() const
 }
 
 
-void Param::printParams() 
+void Param::printParams() const
 {
 	std::cout << "InputRedirect: [" 
 	     << (inputRedirect != NULL) ? inputRedirect : "NULL";
