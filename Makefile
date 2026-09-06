@@ -8,4 +8,4 @@ param.o: param.hpp param.cpp
 	${CC} -c ${CXXFLAGS} param.cpp
 
 clean:
-	myshell *.o
+	rm -f myshell *.o
