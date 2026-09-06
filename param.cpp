@@ -15,10 +15,13 @@
 
 Param::Param() 
 {
-	inputRedirect = NULL;
-	outputRedirect = NULL;
+	inputRedirect = nullptr;
+	outputRedirect = nullptr;
 	background = 0;
 	argumentCount = 0;
+
+	for (int i = 0; i < MAXARGS; ++i)
+		argumentVector[i] = nullptr;
 }
 
 void Param::addArgument(char *newArgument)
@@ -68,11 +71,11 @@ int Param::getBackground() const
 void Param::printParams() const
 {
 	std::cout << "InputRedirect: [" 
-	     << (inputRedirect != NULL) ? inputRedirect : "NULL";
+	     << (inputRedirect != nullptr) ? inputRedirect : "NULL";
 	std::cout << "]" 
 	     << std::endl 
 		 <<	"OutputRedirect: [" 
-		 << (outputRedirect != NULL) ? outputRedirect : "NULL";
+		 << (outputRedirect != nullptr) ? outputRedirect : "NULL";
 	std::cout << "]" 
 	     << std::endl 
 		 << "Background: [" 
