@@ -28,6 +28,13 @@ class Param
 		 * Constructs an empty Param object.
 		 */
 		Param(); 
+		
+		/**
+		 * Destructor for Param object.
+		 * frees string in argumentVector
+		 *
+		 */
+		~Param();
 
 		/**
 		 * Adds an argument string to the argument list in this object. This function

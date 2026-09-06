@@ -24,6 +24,12 @@ Param::Param()
 		argumentVector[i] = nullptr;
 }
 
+Param::~Param() 
+{
+	for (int i = 0; i < MAXARGS; ++i)
+		delete[] argumentVector[i];
+}
+
 void Param::addArgument(char *newArgument)
 {
 	// finish this
