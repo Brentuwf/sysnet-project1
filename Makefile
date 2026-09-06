@@ -1,4 +1,4 @@
-CXXFLAGS = -g -Wall -Wextra -Wpedantic
+CXXFLAGS = -std=c++11 -g -Wall -Wextra -Wpedantic
 CC = g++
 
 myshell: param.o myshell.cpp 
