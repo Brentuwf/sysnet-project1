@@ -10,6 +10,7 @@
 #define _PARAM_CPP
 
 #include <iostream>
+#include <cstring>
 
 #include "param.hpp"
 
@@ -40,14 +41,21 @@ void Param::addArgument(char *newArgument)
 	if (argumentCount >= MAXARGS -1)
 		return;
 
-	argumentVector[argumentCount] = newArgument;
+	argumentVector[argumentCount] = strdup(newArgument);
 	argumentCount++;
 }
 
 char** Param::getArguments()
 {
-	// finish this
-	return NULL;
+	char **argumentsVector = new char*[argumentCount + 1];
+
+	/* shallow copy, caller only needs to delete memeory for the array of char * */	
+	for (int i = 0; i < argumentCount; ++i)
+		argumentsVector[i] = argumentVector[i];
+
+	argumentsVector[argumentCount] = nullptr;
+
+	return argumentsVector;
 }
 
 void Param::setInputRedirect(char *newInputRedirect)
