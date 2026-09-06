@@ -10,7 +10,7 @@
 #define _PARAM_HPP
 
 /* Don't test program with more than this many tokens for input  */
-#define MAXARGS 32
+static constexpr int MAXARGS = 32;
 
 /* Class to hold input data                                  */
 class Param
