@@ -53,7 +53,7 @@ class Param
 		 * Note: 
 		 *   Caller must deallocate memory for the list.
 		 */
-		char** getArguments();
+		char** getArguments() const;
 	
 		// getter & setter functions
 		

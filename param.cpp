@@ -46,7 +46,7 @@ void Param::addArgument(char *newArgument)
 	argumentCount++;
 }
 
-char** Param::getArguments()
+char** Param::getArguments() const
 {
 	char **argumentsVector = new char*[argumentCount + 1];
 
