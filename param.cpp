@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <stdexcept>
 
 #include "param.hpp"
 
@@ -35,11 +36,11 @@ void Param::addArgument(char *newArgument)
 {
 	/* header guard to prevent adding nullptr */
 	if (newArgument == nullptr)
-		return;
+		throw std::invalid_argument("newArgument is NULL");
 	
 	/* header guard to prevent going out of bounds or overiding the string terminator*/
 	if (argumentCount >= MAXARGS -1)
-		return;
+		throw std::out_of_range("Input tokens are greater than the maximum ammount");
 
 	argumentVector[argumentCount] = strdup(newArgument);
 	argumentCount++;
