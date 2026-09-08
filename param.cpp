@@ -54,7 +54,7 @@ char** Param::getArguments() const
 	for (int i = 0; i < argumentCount; ++i)
 		argumentsVector[i] = argumentVector[i];
 
-	argumentsVector[argumentCount] = nullptr;
+	argumentsVector[argumentCount] = (char *) NULL; /* Needed for execv/execvp */
 
 	return argumentsVector;
 }
