@@ -2,10 +2,10 @@
 #define _PARSE_CPP
 
 #include <regex>
-
+#include <stdexcept>
 #include "parse.hpp"
 
-bool Parse::isValidInput(char *input) const
+void Parse::isValidInput(char *input) const
 {
 	/*  Regex pattern breakdown:
          * ^\S+            command, one or more non-whitespace, no leading whitespace
@@ -17,7 +17,8 @@ bool Parse::isValidInput(char *input) const
 	 */
         std::regex pattern("^\\S+(\\s+\\S+)*(\\s*<\\s+\\S+)?(\\s*>\\s+\\S+)?(\\s*&)?$");
 
-	return std::regex_match(input, pattern);
+	if (!std::regex_match(input, pattern))
+		throw std::invalid_argument("Input does is not valid syntax");
 }
 
 

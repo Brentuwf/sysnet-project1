@@ -6,11 +6,10 @@ class Parse {
 		/**
 		 * Validates input after it has been passed to the tokenizer
 		 * Disallows no space between input and output redirect symbols
-		 * @ param char *input, character pointer for input string, assumes non empty string is passed
-		 *
-		 * @ return bool true for valid input, false for invalid input
+		 * @param char *input, character pointer for input string, assumes non empty string is passed
+		 * @throw invalid_argument exception if regex returns false
 		 */
-		bool isValidInput(char *input) const;
+		void isValidInput(char *input) const;
 
 	public:
 
