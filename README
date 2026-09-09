@@ -1,0 +1,115 @@
+# Project 1: myshell
+
+## Course
+COP4634 - Systems & Networks I  
+Fall 2026
+
+## Project Overview
+This project implements a simplified Unix-style shell named `myshell`.
+
+The shell reads a command entered by the user, parses the command into tokens, and stores the parsed information in a `Param` object. The parser recognizes normal command arguments, input redirection, output redirection, and background execution.
+
+Part II of the project will extend the shell so that it creates child processes, executes programs, performs input/output redirection, supports foreground and background execution, and prevents zombie processes.
+
+## Files
+- `myshell.cpp` - contains `main()`, displays the shell prompt, reads user input, and passes commands to the parser.
+- `parse.cpp` - implements command validation, tokenization, and conversion of tokens into a `Param` object.
+- `parse.hpp` - declares the `Parse` class and parser functions.
+- `param.cpp` - implements the `Param` class functions.
+- `param.hpp` - defines the `Param` class and `MAXARGS`.
+- `Makefile` - compiles and links the project.
+- `README` - describes the project and its usage.
+
+## Building the Program
+From the project directory, run:
+
+```bash
+make
+```
+
+To remove the executable and object files, run:
+
+```bash
+make clean
+```
+
+The Makefile compiles the project with debugging information and compiler warnings enabled.
+
+## Running the Program
+Run the shell with:
+
+```bash
+./myshell
+```
+
+The shell displays the prompt:
+
+```text
+$$$
+```
+
+Enter `exit` to terminate the shell.
+
+The required debug-mode syntax is:
+
+```bash
+./myshell -Debug
+```
+
+In debug mode, the parsed contents of the `Param` object should be printed after each command.
+
+## Command Syntax
+Commands consist of tokens separated by spaces, tabs, or newline characters.
+
+The parser supports:
+
+- normal command arguments
+- input redirection using `<filename`
+- output redirection using `>filename`
+- background execution using `&`
+
+Example:
+
+```text
+one two three <four >five &
+```
+
+This command is parsed as:
+
+```text
+InputRedirect: [four]
+OutputRedirect: [five]
+Background: [1]
+ArgumentCount: [3]
+ArgumentVector[0]: [one]
+ArgumentVector[1]: [two]
+ArgumentVector[2]: [three]
+```
+
+## Current Part I Functionality
+The current implementation:
+
+- displays the `$$$` prompt
+- reads commands from standard input
+- exits when the user enters `exit`
+- tokenizes input using spaces, tabs, and newline characters
+- stores normal arguments in `argumentVector`
+- stores input and output redirection filenames
+- detects the background operator `&`
+- supports repeated command entry
+
+## Part II
+Part II will add:
+
+- process creation using `fork()`
+- program execution using an `exec()` family function
+- input and output redirection
+- foreground and background execution
+- waiting for child processes
+- prevention of zombie processes
+- waiting for all remaining background children before the shell exits
+
+## Notes
+The project is intended to run on the department Linux servers.
+
+Do not use the `system()` function or another production shell to execute commands.
