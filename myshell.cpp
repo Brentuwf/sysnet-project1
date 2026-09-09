@@ -1,8 +1,31 @@
 #include <cstdlib>
 #include <iostream>
+#include <string>
+#include <cstring>
 #include "param.hpp"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char **argv) {
+
+	std::string input;	
+	do {	
+		std::cout << "$$$ ";
+		getline(std::cin, input);
+		
+		/* inputCString will be pased to parser */	
+		char *inputCString = new char[input.length() + 1];
+  		std::strcpy (inputCString, input.c_str());
+
+
+		// parser function calls
+		// future logic for fork and execv/execvp
+		
+		/* Clean up to prevent memory leaks on additional shell commands */	
+		delete[] inputCString;
+		inputCString = nullptr;
+
+	} while(input != "Exit");
+
+	/* test below remove before submittion */
 	Param *testParam = new Param();
 
 	for (int i = 0; i < argc; i++) { 
