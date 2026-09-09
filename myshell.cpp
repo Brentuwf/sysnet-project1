@@ -15,12 +15,13 @@ int main(int argc, char **argv) {
         	return EXIT_FAILURE;
     	}
 
-    	if ((argc == 2) && (strcmp(argv[1], "-Debug") == 0)) {
- 		debugMode = true;
-        } else {
+    	if ((argc == 2) && (std::strcmp(argv[1], "-Debug") != 0)) {
         	std::cerr << "Unknown argument '" << argv[1] << "' Only -Debug is accepted" << std::endl;
         	return EXIT_FAILURE;
-        }
+   	}
+
+	/* safe, guard clauses will return on args that are not equal to -Debug */
+    	debugMode = (argc == 2);
 	
 	do {
 		std::cout << "$$$ ";
