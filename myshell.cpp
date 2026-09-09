@@ -3,34 +3,52 @@
 #include <string>
 #include <cstring>
 #include "param.hpp"
+#include "parse.hpp"
 
 int main(int argc, char **argv) {
 
-	std::string input;	
-	do {	
+	std::string input;
+
+	do {
 		std::cout << "$$$ ";
 		getline(std::cin, input);
-		
-		/* inputCString will be pased to parser */	
+
+		/* Exit shell when user enters "exit" */
+		if (input == "exit")
+			break;
+
+		/* inputCString will be passed to parser */
 		char *inputCString = new char[input.length() + 1];
-  		std::strcpy (inputCString, input.c_str());
+		std::strcpy(inputCString, input.c_str());
 
+		/* Parser function calls */
+		try {
+			Parse parser(inputCString);
 
-		// parser function calls
-		// future logic for fork and execv/execvp
-		
-		/* Clean up to prevent memory leaks on additional shell commands */	
+			/* Get the parsed command parameters */
+			Param *parameters = parser.getParameters();
+
+			/* Temporary Part I testing */
+			parameters->printParams();
+
+			// future logic for fork and execv/execvp
+		}
+		catch (const std::exception& message) {
+			std::cerr << message.what() << std::endl;
+		}
+
+		/* Clean up to prevent memory leaks on additional shell commands */
 		delete[] inputCString;
 		inputCString = nullptr;
 
-	} while(input != "Exit");
+	} while(true);
 
-	/* test below remove before submittion */
+	/* test below remove before submission */
 	Param *testParam = new Param();
 
-	for (int i = 0; i < argc; i++) { 
+	for (int i = 0; i < argc; i++) {
 		try {
-                	testParam->addArgument(argv[i]);
+			testParam->addArgument(argv[i]);
 		}
 		catch (std::invalid_argument& message) {
 			std::cerr << message.what() << std::endl;

@@ -88,11 +88,11 @@ int Param::getBackground() const
 void Param::printParams() const
 {
 	std::cout << "InputRedirect: [" 
-	     << (inputRedirect != nullptr) ? inputRedirect : "NULL";
+	     << (inputRedirect != nullptr ? inputRedirect : "NULL");
 	std::cout << "]" 
 	     << std::endl 
 		 <<	"OutputRedirect: [" 
-		 << (outputRedirect != nullptr) ? outputRedirect : "NULL";
+		 << (outputRedirect != nullptr ? outputRedirect : "NULL");
 	std::cout << "]" 
 	     << std::endl 
 		 << "Background: [" 
