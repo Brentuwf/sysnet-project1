@@ -7,8 +7,12 @@
 
 int main(int argc, char **argv) {
 
-	std::string input;
+	std::string input = "";
+	char *inputCString = nullptr;
 	bool debugMode = false;
+
+	Parse *parser = nullptr;
+	Param *parameters = nullptr;
 
 	if (argc > 2) {
         	std::cerr << "Error: Too many arguments. Only -Debug is accepted." << std::endl;
@@ -37,15 +41,15 @@ int main(int argc, char **argv) {
 			break;
 
 		/* inputCString will be passed to parser */
-		char *inputCString = new char[input.length() + 1];
+		inputCString = new char[input.length() + 1];
 		std::strcpy(inputCString, input.c_str());
 
 		/* Parser function calls */
 		try {
-			Parse parser(inputCString);
+			parser = new Parse(inputCString);
 
 			/* Get the parsed command parameters */
-			Param *parameters = parser.getParameters();
+			parameters = parser->getParameters();
 
 			/* Temporary Part I testing */
 			if (debugMode)
@@ -59,7 +63,11 @@ int main(int argc, char **argv) {
 
 		/* Clean up to prevent memory leaks on additional shell commands */
 		delete[] inputCString;
+		delete parser;
+
 		inputCString = nullptr;
+		parser = nullptr;
+		parameters = nullptr;
 
 	} while(true);
 
