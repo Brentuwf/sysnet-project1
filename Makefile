@@ -1,17 +1,16 @@
 CXXFLAGS = -std=c++11 -g -Wall -Wextra -Wpedantic
 CC = g++
 
-myshell: myshell.o param.o parse.o
-	${CC} -o myshell myshell.o param.o parse.o
+OBJS = myshell.o param.o parse.o 
+SRC = myshell.cpp param.cpp parse.cpp
+HDR = param.hpp parse.hpp
+BINARY = myshell
 
-myshell.o: myshell.cpp param.hpp
-	${CC} -c ${CXXFLAGS} myshell.cpp
+${BINARY}: ${OBJS} 
+	${CC} -o ${BINARY} ${OBJS}
 
-param.o: param.cpp param.hpp
-	${CC} -c ${CXXFLAGS} param.cpp
-
-parse.o: parse.cpp parse.hpp param.hpp
-	${CC} -c ${CXXFLAGS} parse.cpp
+${OBJS}: ${SRC} ${HDR} 
+	${CC} -c ${CXXFLAGS} ${SRC}
 
 clean:
-	rm -f myshell *.o
+	rm -f ${BINARY} *.o
