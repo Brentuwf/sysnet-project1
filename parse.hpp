@@ -1,6 +1,8 @@
 #ifndef _PARSE_HPP
 #define _PARSE_HPP
 
+#include "param.hpp"
+
 class Parse {
 	private:
 		Param *commandParameters;
@@ -12,7 +14,7 @@ class Parse {
 		 */
 		void isValidInput(char *tokenizedInput) const;
 		char *tokenizer(char *input);
-		void tokensToParam(char *tokenizedInput)
+		void tokensToParam(char *tokenizedInput);
 
 	public:
 		Parse(char *input);
