@@ -8,7 +8,20 @@
 int main(int argc, char **argv) {
 
 	std::string input;
+	bool debugMode = false;
 
+	if (argc > 2) {
+        	std::cerr << "Error: Too many arguments. Only -Debug is accepted." << std::endl;
+        	return 1;
+    	}
+
+    	if ((argc == 2) && (strcmp(argv[1], "-Debug") == 0)) {
+ 		debugMode = true;
+        } else {
+        	std::cerr << "Unknown argument '" << argv[1] << "' Only -Debug is accepted" << std::endl;
+        	return 1;
+        }
+	
 	do {
 		std::cout << "$$$ ";
 		getline(std::cin, input);
@@ -29,7 +42,8 @@ int main(int argc, char **argv) {
 			Param *parameters = parser.getParameters();
 
 			/* Temporary Part I testing */
-			parameters->printParams();
+			if (debugMode)
+				parameters->printParams();
 
 			// future logic for fork and execv/execvp
 		}
