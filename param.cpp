@@ -10,7 +10,6 @@
 #define _PARAM_CPP
 
 #include <iostream>
-#include <cstring>
 #include <stdexcept>
 
 #include "param.hpp"
@@ -26,12 +25,6 @@ Param::Param()
 		argumentVector[i] = nullptr;
 }
 
-Param::~Param() 
-{
-	for (int i = 0; i < argumentCount; ++i)
-		delete[] argumentVector[i];
-}
-
 void Param::addArgument(char *newArgument)
 {
 	/* header guard to prevent adding nullptr */
@@ -42,7 +35,7 @@ void Param::addArgument(char *newArgument)
 	if (argumentCount >= MAXARGS -1)
 		throw std::out_of_range("Input tokens are greater than the maximum ammount");
 
-	argumentVector[argumentCount] = strdup(newArgument);
+	argumentVector[argumentCount] = newArgument;
 	argumentCount++;
 }
 

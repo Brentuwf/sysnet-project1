@@ -30,13 +30,6 @@ class Param
 		Param(); 
 		
 		/**
-		 * Destructor for Param object.
-		 * frees string in argumentVector
-		 *
-		 */
-		~Param();
-
-		/**
 		 * Adds an argument string to the argument list in this object. This function
 		 * does not create a string copy of the original string. 
 		 * 
