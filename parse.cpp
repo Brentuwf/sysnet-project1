@@ -30,7 +30,7 @@ Parse::Parse(char *input)
 	commandParameters = new Param();
 
 	/* Get the first token */
-	char *firstToken = tokenizer(input);
+	char *firstToken = std::strtok(input, " \t\n");
 
 	/* Process the first token and all remaining tokens */
 	tokensToParam(firstToken);
@@ -69,25 +69,6 @@ void Parse::isValidInput(char *input) const
 	if (!std::regex_match(input, pattern))
 		throw std::invalid_argument("Input is not valid syntax");
 }
-
-
-/**
- * Begins tokenizing the command line input.
- *
- * strtok() returns the first token when the input string is supplied.
- * Additional tokens can later be retrieved by calling:
- *
- *     std::strtok(nullptr, " \t\n");
- *
- * @param input character pointer containing the command line input
- * @return pointer to the first token, or nullptr if no token exists
- */
-char *Parse::tokenizer(char *input)
-{
-	/* Separate tokens using spaces, tabs, and newline characters */
-	return std::strtok(input, " \t\n");
-}
-
 
 /**
  * Processes the tokens and stores their values in the Param object.
