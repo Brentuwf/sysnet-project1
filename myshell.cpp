@@ -12,14 +12,14 @@ int main(int argc, char **argv) {
 
 	if (argc > 2) {
         	std::cerr << "Error: Too many arguments. Only -Debug is accepted." << std::endl;
-        	return 1;
+        	return EXIT_FAILURE;
     	}
 
     	if ((argc == 2) && (strcmp(argv[1], "-Debug") == 0)) {
  		debugMode = true;
         } else {
         	std::cerr << "Unknown argument '" << argv[1] << "' Only -Debug is accepted" << std::endl;
-        	return 1;
+        	return EXIT_FAILURE;
         }
 	
 	do {
