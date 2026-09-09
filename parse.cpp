@@ -17,9 +17,6 @@ Parse::Parse(char *input)
 {
 	commandParameters = nullptr;
 
-	if (input == nullptr || input[0] == '\0')
-		throw std::invalid_argument("Input is empty");
-
 	/*
 	 * Validate BEFORE tokenizing because strtok() changes
 	 * the original input string.

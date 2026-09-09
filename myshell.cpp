@@ -27,6 +27,11 @@ int main(int argc, char **argv) {
 		std::cout << "$$$ ";
 		getline(std::cin, input);
 
+		if (input.empty()) {
+			std::cout << "Input is empty" << std::endl;
+			continue;
+		}
+
 		/* Exit shell when user enters "exit" */
 		if (input == "exit")
 			break;
