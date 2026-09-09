@@ -1,11 +1,17 @@
 CXXFLAGS = -std=c++11 -g -Wall -Wextra -Wpedantic
 CC = g++
 
-myshell: param.o myshell.cpp 
-	${CC} -o myshell myshell.cpp param.o
+myshell: myshell.o param.o parse.o
+	${CC} -o myshell myshell.o param.o parse.o
 
-param.o: param.hpp param.cpp
+myshell.o: myshell.cpp param.hpp
+	${CC} -c ${CXXFLAGS} myshell.cpp
+
+param.o: param.cpp param.hpp
 	${CC} -c ${CXXFLAGS} param.cpp
+
+parse.o: parse.cpp parse.hpp param.hpp
+	${CC} -c ${CXXFLAGS} parse.cpp
 
 clean:
 	rm -f myshell *.o
