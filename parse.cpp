@@ -102,43 +102,34 @@ char *Parse::tokenizer(char *input)
 void Parse::tokensToParam(char *tokenizedInput)
 {
 	char *token = tokenizedInput;
-
+	
 	while (token != nullptr) {
-
-		/* Background execution */
-		if (std::strcmp(token, "&") == 0) {
-			commandParameters->setBackground(1);
+    		switch (token[0]) {
+			/* Background execution */
+        		case '&':
+            			commandParameters->setBackground(1);
+            			break;
+			/* Input redirection: example <input.txt */
+        		case '<':
+            			if (token[1] == '\0') 
+                			throw std::invalid_argument("Input redirect requires a filename");
+				/* token + 1 skips the '<' character */
+            			commandParameters->setInputRedirect(token + 1);
+            			break;
+			/* Output redirection: example >output.txt */
+        		case '>':
+            			if (token[1] == '\0') 
+                			throw std::invalid_argument("Output redirect requires a filename");
+				/* token + 1 skips the '>' character */
+            			commandParameters->setOutputRedirect(token + 1);
+            			break;
+			/* Normal command or argument */
+        		default:
+            			commandParameters->addArgument(token);
+            			break;
 		}
-
-		/* Input redirection: example <input.txt */
-		else if (token[0] == '<') {
-			if (token[1] == '\0')
-				throw std::invalid_argument(
-					"Input redirect requires a filename"
-				);
-
-			/* token + 1 skips the '<' character */
-			commandParameters->setInputRedirect(token + 1);
-		}
-
-		/* Output redirection: example >output.txt */
-		else if (token[0] == '>') {
-			if (token[1] == '\0')
-				throw std::invalid_argument(
-					"Output redirect requires a filename"
-				);
-
-			/* token + 1 skips the '>' character */
-			commandParameters->setOutputRedirect(token + 1);
-		}
-
-		/* Normal command or argument */
-		else {
-			commandParameters->addArgument(token);
-		}
-
 		/* Get the next token */
-		token = std::strtok(nullptr, " \t\n");
+    		token = std::strtok(nullptr, " \t\n");
 	}
 }
 
