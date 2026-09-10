@@ -1,18 +1,12 @@
 #ifndef _PARSE_CPP
 #define _PARSE_CPP
 
-#include <cstring>      // strtok(), strcmp()
+#include <cstring>      
 #include <regex>
 #include <stdexcept>
 
 #include "parse.hpp"
 
-
-/**
- * Constructs a Parse object and parses the command line input.
- *
- * @param input character pointer containing the command line input
- */
 Parse::Parse(char *input)
 {
 	commandParameters = nullptr;
@@ -33,41 +27,33 @@ Parse::Parse(char *input)
 	tokensToParam(firstToken);
 }
 
-
-/**
- * Destructor for Parse.
- */
 Parse::~Parse()
 {
 	delete commandParameters;
 	commandParameters = nullptr;
 }
 
-
-/**
- * Validates command line input before it is tokenized.
- */
 void Parse::isValidInput(char *input) const
 {
-	/*
+	/**
  	 * Regular Expression Breakdown 
- 	*
- 	* ^ Forces the match to begin the beginning of the input 
- 	* 
- 	* \s* Allow leading whitespace, tokenizer will take care of parsing it  
- 	* 
- 	* ([^\s<>&]+) First command, allows characters as long as they are not whitespace, <, >, or &.
- 	* 
- 	* (\s+[^\s<>&]+)* Allows zero or more command-line arguments, requires one or morespacing between arguments   
-	*
-	* (\s*<[^\s<>&]+)? Input redirection, Enforces no space between redirect and filename 
- 	* 
- 	* (\s*>[^\s<>&]+)? Output redirection, Enforces no space between redirect and filename 
- 	* 
- 	* (\s*&\s*)? Background execution 
- 	* 
- 	* $ Enforces background execution token must be the last token
- 	*/	
+ 	 *
+ 	 * ^ Forces the match to begin the beginning of the input 
+ 	 * 
+ 	 * \s* Allow leading whitespace, tokenizer will take care of parsing it  
+ 	 * 
+ 	 * ([^\s<>&]+) First command, allows characters as long as they are not whitespace, <, >, or &.
+ 	 * 
+ 	 * (\s+[^\s<>&]+)* Allows zero or more command-line arguments, requires one or morespacing between arguments   
+	 *
+	 * (\s*<[^\s<>&]+)? Input redirection, Enforces no space between redirect and filename 
+ 	 * 
+ 	 * (\s*>[^\s<>&]+)? Output redirection, Enforces no space between redirect and filename 
+ 	 * 
+ 	 * (\s*&\s*)? Background execution 
+ 	 * 
+ 	 * $ Enforces background execution token must be the last token
+ 	 */	
 	std::regex pattern(R"(^\s*([^\s<>&]+)(\s+[^\s<>&]+)*(\s*<[^\s<>&]+)?(\s*>[^\s<>&]+)?(\s*&\s*)?$)");
 
 	if (!std::regex_match(input, pattern))
@@ -75,14 +61,13 @@ void Parse::isValidInput(char *input) const
 }
 
 /**
- * Processes the tokens and stores their values in the Param object.
+ * Assumes input has been processed through isValidInput and is valid 
  *
- * Normal tokens are added to argumentVector.
- * Tokens beginning with '<' specify input redirection.
- * Tokens beginning with '>' specify output redirection.
- * '&' specifies background execution.
+ * Normal tokens are added to argumentVector
+ * Tokens beginning with '<' specify input redirection
+ * Tokens beginning with '>' specify output redirection
+ * '&' specifies background execution
  *
- * @param tokenizedInput pointer to the first token
  */
 void Parse::tokensToParam(char *tokenizedInput)
 {
@@ -114,12 +99,6 @@ void Parse::tokensToParam(char *tokenizedInput)
 	}
 }
 
-
-/**
- * Returns the Param object containing the parsed command information.
- *
- * @return pointer to commandParameters
- */
 Param *Parse::getParameters() const
 {
 	return commandParameters;
