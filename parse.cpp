@@ -50,18 +50,25 @@ Parse::~Parse()
 void Parse::isValidInput(char *input) const
 {
 	/*
-	 * Regex pattern breakdown:
-	 *
-	 * ^\S+            command, one or more non-whitespace characters
-	 * (\s+\S+)*       optional arguments, separated by whitespace
-	 * (\s*<\s+\S+)?   optional input redirection
-	 * (\s*>\s+\S+)?   optional output redirection
-	 * (\s*&)?         optional background execution
-	 * $               end of string
-	 */
-	std::regex pattern(
-		"^\\S+(\\s+\\S+)*(\\s*<\\s+\\S+)?(\\s*>\\s+\\S+)?(\\s*&)?$"
-	);
+ 	 * Regular Expression Breakdown 
+ 	*
+ 	* ^ Forces the match to begin the beginning of the input 
+ 	* 
+ 	* \s* Allow leading whitespace, tokenizer will take care of parsing it  
+ 	* 
+ 	* ([^\s<>&]+) First command, allows characters as long as they are not whitespace, <, >, or &.
+ 	* 
+ 	* (\s+[^\s<>&]+)* Allows zero or more command-line arguments, requires one or morespacing between arguments   
+	*
+	* (\s*<[^\s<>&]+)? Input redirection, Enforces no space between redirect and filename 
+ 	* 
+ 	* (\s*>[^\s<>&]+)? Output redirection, Enforces no space between redirect and filename 
+ 	* 
+ 	* (\s*&\s*)? Background execution 
+ 	* 
+ 	* $ Enforces background execution token must be the last token
+ 	*/	
+	std::regex pattern(R"(^\s*([^\s<>&]+)(\s+[^\s<>&]+)*(\s*<[^\s<>&]+)?(\s*>[^\s<>&]+)?(\s*&\s*)?$)");
 
 	if (!std::regex_match(input, pattern))
 		throw std::invalid_argument("Input is not valid syntax");
