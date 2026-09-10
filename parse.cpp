@@ -96,15 +96,11 @@ void Parse::tokensToParam(char *tokenizedInput)
             			break;
 			/* Input redirection: example <input.txt */
         		case '<':
-            			if (token[1] == '\0') 
-                			throw std::invalid_argument("Input redirect requires a filename");
 				/* token + 1 skips the '<' character */
             			commandParameters->setInputRedirect(token + 1);
             			break;
 			/* Output redirection: example >output.txt */
         		case '>':
-            			if (token[1] == '\0') 
-                			throw std::invalid_argument("Output redirect requires a filename");
 				/* token + 1 skips the '>' character */
             			commandParameters->setOutputRedirect(token + 1);
             			break;
