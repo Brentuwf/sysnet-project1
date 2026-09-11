@@ -1,7 +1,16 @@
+/**
+ * This program prompts the user for two input values to compute the average of the two values.
+ *
+ * @author Thomas Reichherzer
+ * @date 8/12/2016
+ * @info Course COP3014
+ */
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <cstring>
+
 #include "param.hpp"
 #include "parse.hpp"
 

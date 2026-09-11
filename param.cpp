@@ -43,7 +43,7 @@ char** Param::getArguments() const
 {
 	char **argumentsVector = new char*[argumentCount + 1];
 
-	/* shallow copy, caller only needs to delete memeory for the array of char * */	
+	/* shallow copy, only stores pointes to the input char * */	
 	for (int i = 0; i < argumentCount; ++i)
 		argumentsVector[i] = argumentVector[i];
 
@@ -72,18 +72,15 @@ char* Param::getInputRedirect() const
 	return inputRedirect;
 }
 		
-		
 char* Param::getOutputRedirect() const
 {
 	return outputRedirect; 
 }
-
 		
 int Param::getBackground() const
 {
 	return background;
 }
-
 
 void Param::printParams() const
 {

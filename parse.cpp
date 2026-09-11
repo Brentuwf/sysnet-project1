@@ -1,3 +1,11 @@
+/**
+ * This program prompts the user for two input values to compute the average of the two values.
+ *
+ * @author Thomas Reichherzer
+ * @date 8/12/2016
+ * @info Course COP3014
+ */
+
 #ifndef _PARSE_CPP
 #define _PARSE_CPP
 

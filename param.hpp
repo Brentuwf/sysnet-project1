@@ -36,7 +36,7 @@ class Param
          	 * @param newArgument a new argument to be added to the argument list; 
 		 *                    if NULL nothing will be added		 
          	 */
-		void addArgument (char* newArgument);
+		void addArgument(char *newArgument);
 		
 		/**
 		 * Returns an argument list referencing char* strings. The last element in the 
