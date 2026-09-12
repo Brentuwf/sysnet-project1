@@ -2,8 +2,8 @@ CXXFLAGS = -std=c++11 -g -Wall -Wextra -Wpedantic
 CC = g++
 
 OBJS = myshell.o param.o parse.o 
-SRC = myshell.cpp param.cpp parse.cpp
-HDR = param.hpp parse.hpp
+SRC = myshell.cpp param.cpp parse.cpp process.cpp
+HDR = param.hpp parse.hpp process.hpp
 BINARY = myshell
 
 ${BINARY}: ${OBJS} 
