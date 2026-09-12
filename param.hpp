@@ -1,9 +1,10 @@
 /**
- *  param.hpp
- *  
- *  Thomas Reichherzer
- *  Copyright 2009 UWF - CS. All rights reserved.
+ * Stores and manages parsed shell command parameters, including arguments,
+ * redirection filenames, background status, and debug output.
  *
+ * Brent Anderson
+ * 09/14/2026
+ * COP4634
  */
 
 #ifndef _PARAM_HPP
