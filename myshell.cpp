@@ -1,9 +1,10 @@
 /**
- * This program prompts the user for two input values to compute the average of the two values.
+ * Simple command-line shell that parses user commands
+ * and supports redirection, background execution, and debug output.
  *
- * @author Thomas Reichherzer
- * @date 8/12/2016
- * @info Course COP3014
+ * Brent Anderson
+ * 09/14/2026
+ * COP4634
  */
 
 #include <cstdlib>
