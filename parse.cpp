@@ -32,7 +32,12 @@ Parse::Parse(char *input)
 	char *firstToken = std::strtok(input, " \t\n");
 
 	/* Process the first token and all remaining tokens */
-	tokensToParam(firstToken);
+	try {
+		tokensToParam(firstToken);
+	} catch (const std::out_of_range &message) {
+		delete commandParameters;
+		throw;
+	}
 }
 
 Parse::~Parse()
