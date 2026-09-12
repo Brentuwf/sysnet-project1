@@ -28,11 +28,7 @@ Param::Param()
 
 void Param::addArgument(char *newArgument)
 {
-	/* header guard to prevent adding nullptr */
-	if (newArgument == nullptr)
-		throw std::invalid_argument("newArgument is NULL");
-	
-	/* header guard to prevent going out of bounds or overiding the string terminator*/
+	/* guard clause to prevent going out of bounds or overiding the string terminator*/
 	if (argumentCount >= MAXARGS -1)
 		throw std::out_of_range("Input tokens are greater than the maximum amount");
 
