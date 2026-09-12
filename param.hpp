@@ -1,6 +1,5 @@
 /**
- * Stores and manages parsed shell command parameters, including arguments,
- * redirection filenames, background status, and debug output.
+ * Defines the Param class used to store parsed shell command parameters.
  *
  * Brent Anderson
  * 09/14/2026
