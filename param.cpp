@@ -34,7 +34,7 @@ void Param::addArgument(char *newArgument)
 	
 	/* header guard to prevent going out of bounds or overiding the string terminator*/
 	if (argumentCount >= MAXARGS -1)
-		throw std::out_of_range("Input tokens are greater than the maximum ammount");
+		throw std::out_of_range("Input tokens are greater than the maximum amount");
 
 	argumentVector[argumentCount] = newArgument;
 	argumentCount++;
@@ -44,7 +44,7 @@ char** Param::getArguments() const
 {
 	char **argumentsVector = new char*[argumentCount + 1];
 
-	/* shallow copy, only stores pointes to the input char * */	
+	/* shallow copy, only stores pointers to the input char * */	
 	for (int i = 0; i < argumentCount; ++i)
 		argumentsVector[i] = argumentVector[i];
 
