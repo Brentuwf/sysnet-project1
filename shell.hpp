@@ -9,8 +9,8 @@ class Shell
 		void parseArguments(int argc, char **argv);
 
 	public:
-		Shell(int argc, char **argv)
-		int run();
+		Shell(int argc, char **argv);
+		void run();
 };
 
 #endif 

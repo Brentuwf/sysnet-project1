@@ -1,6 +1,7 @@
 #ifndef _SHELL_CPP
 #define _SHELL_CPP
 
+#include <stdexcept>
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -22,17 +23,18 @@ void Shell::parseArguments(int argc, char **argv)
         	throw std::runtime_error("Error: Too many arguments Only -Debug is accepted");
 
     	if ((argc == 2) && (std::strcmp(argv[1], "-Debug") != 0)) 
-        	throw std::runtime_error("Unknown argument '" + argv[1] + "' Only -Debug is accepted");
+        	throw std::runtime_error("Unknown argument '" + std::string(argv[1]) + "' Only -Debug is accepted");
 
 	/* safe, guard clauses will return on args that are not equal to -Debug */
     	debugMode = (argc == 2);
 }
 
-int Shell::run()
+void Shell::run()
 {
 	std::string input = "";
-	char *inputCString = nullptr;
 
+	/* memory is allocated and freed every loop, no need for class level scope */
+	char *inputCString = nullptr;
 	Parse *parser = nullptr;
 	Param *parameters = nullptr;
 
@@ -72,17 +74,14 @@ int Shell::run()
 		}
 
 		/* Clean up to prevent memory leaks on additional shell commands */
-		delete[] inputCString;
+		//delete[] inputCString;
 		delete parser;
-
+		delete[] inputCString;
 		inputCString = nullptr;
 		parser = nullptr;
 		parameters = nullptr;
 
 	} while(true);
 	
-	return EXIT_SUCCESS;
-
-
 }
 #endif 
