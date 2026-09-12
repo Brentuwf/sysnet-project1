@@ -1,9 +1,9 @@
 /**
- * This program prompts the user for two input values to compute the average of the two values.
+ * Defines the Parse class used to validate and parse shell command input.
  *
- * @author Thomas Reichherzer
- * @date 8/12/2016
- * @info Course COP3014
+ * Brent Anderson and Cadence Phillips
+ * 09/14/2026
+ * COP4634
  */
 
 #ifndef _PARSE_HPP
