@@ -18,15 +18,11 @@ Shell::Shell(int argc, char **argv)
 
 void Shell::parseArguments(int argc, char **argv)
 {
-	if (argc > 2) {
-        	std::cerr << "Error: Too many arguments. Only -Debug is accepted." << std::endl;
-        	return EXIT_FAILURE;
-    	}
+	if (argc > 2) 
+        	throw std::runtime_error("Error: Too many arguments Only -Debug is accepted");
 
-    	if ((argc == 2) && (std::strcmp(argv[1], "-Debug") != 0)) {
-        	std::cerr << "Unknown argument '" << argv[1] << "' Only -Debug is accepted" << std::endl;
-        	return EXIT_FAILURE;
-   	}
+    	if ((argc == 2) && (std::strcmp(argv[1], "-Debug") != 0)) 
+        	throw std::runtime_error("Unknown argument '" + argv[1] + "' Only -Debug is accepted");
 
 	/* safe, guard clauses will return on args that are not equal to -Debug */
     	debugMode = (argc == 2);
