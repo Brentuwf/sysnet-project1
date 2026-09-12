@@ -72,8 +72,8 @@ int main(int argc, char **argv) {
 		}
 
 		/* Clean up to prevent memory leaks on additional shell commands */
-		delete[] inputCString;
 		delete parser;
+		delete[] inputCString;
 
 		inputCString = nullptr;
 		parser = nullptr;
