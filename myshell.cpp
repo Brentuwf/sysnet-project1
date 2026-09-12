@@ -19,24 +19,11 @@ int main(int argc, char **argv) {
 
 	std::string input = "";
 	char *inputCString = nullptr;
-	bool debugMode = false;
 
 	Parse *parser = nullptr;
 	Param *parameters = nullptr;
 
-	if (argc > 2) {
-        	std::cerr << "Error: Too many arguments. Only -Debug is accepted." << std::endl;
-        	return EXIT_FAILURE;
-    	}
-
-    	if ((argc == 2) && (std::strcmp(argv[1], "-Debug") != 0)) {
-        	std::cerr << "Unknown argument '" << argv[1] << "' Only -Debug is accepted" << std::endl;
-        	return EXIT_FAILURE;
-   	}
-
-	/* safe, guard clauses will return on args that are not equal to -Debug */
-    	debugMode = (argc == 2);
-	
+		
 	do {
 		std::cout << "$$$ ";
 		getline(std::cin, input);
