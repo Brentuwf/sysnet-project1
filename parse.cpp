@@ -1,9 +1,9 @@
 /**
- * This program prompts the user for two input values to compute the average of the two values.
+ * Parses and validates shell command input and stores the results in a Param object.
  *
- * @author Thomas Reichherzer
- * @date 8/12/2016
- * @info Course COP3014
+ * Brent Anderson and Cadence Phillips
+ * 09/14/2026
+ * COP4634
  */
 
 #ifndef _PARSE_CPP
