@@ -7,14 +7,20 @@
  * COP4634
  */
 
-#include <cstdlib>
+#include <stdexcept>
 #include <iostream>
-#include <string>
-#include <cstring>
+#include <cstdlib>
 
-#include "param.hpp"
-#include "parse.hpp"
+#include "shell.hpp"
 
 int main(int argc, char **argv) {
-
+	Shell *shell = nullptr;
+	try {
+		shell = new Shell(argc, argv);
+		shell->run();
+		delete shell;
+	} catch (const std::exception &message) {
+		std::cerr << message.what() << std::endl;
+	}
+	return EXIT_SUCCESS;
 }
