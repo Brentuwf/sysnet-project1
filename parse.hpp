@@ -1,5 +1,5 @@
 /**
- * Defines the Parse class used to validate and parse shell command input.
+ * Defines the Parse class used to validate and parse shell command input
  *
  * Brent Anderson and Cadence Phillips
  * 09/14/2026
@@ -33,6 +33,8 @@ class Parse {
  		 * Constructs a Parse object and parses the command line input
  		 *
  		 * @param input character pointer containing the command line input
+		 *
+		 * @throw out_of_range exception from param class if input is greater than 32 tokens 
  		 */
 		Parse(char *input);
 

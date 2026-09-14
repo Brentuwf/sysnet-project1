@@ -9,18 +9,18 @@
 #ifndef _PARAM_HPP
 #define _PARAM_HPP
 
-/* Don't test program with more than this many tokens for input  */
+/* Don't test program with more than this many tokens for input */
 static constexpr int MAXARGS = 32;
 
-/* Class to hold input data                                  */
+/* Class to hold input data */
 class Param
 {
 	private:
-		char *inputRedirect;           /* file name or NULL            */
-		char *outputRedirect;          /* file name or NULL            */
+		char *inputRedirect;           /* file name or NULL */
+		char *outputRedirect;          /* file name or NULL */
 		int   background;              /* either 0 (false) or 1 (true) */
-		int   argumentCount;           /* same as argc in main()       */
-		char *argumentVector[MAXARGS]; /* array of strings             */
+		int   argumentCount;           /* same as argc in main() */
+		char *argumentVector[MAXARGS]; /* array of strings */
 		
 	public:
 		
@@ -31,10 +31,11 @@ class Param
 		
 		/**
 		 * Adds an argument string to the argument list in this object. This function
-		 * does not create a string copy of the original string. 
+		 * does not create a string copy of the original string 
 		 * 
          	 * @param newArgument a new argument to be added to the argument list; 
 		 *                    if NULL nothing will be added		 
+		 * @throw out_of_range exception if the input contains more than 32 tokens 
          	 */
 		void addArgument(char *newArgument);
 		
@@ -44,21 +45,21 @@ class Param
 		 * the list one larger than the number of arguments added to this object.
 		 * 
 		 * Note: 
-		 *   Caller must deallocate memory for the list.
+		 *   Caller must deallocate memory for the list
 		 */
 		char** getArguments() const;
 	
 		// getter & setter functions
 		
 		/**
-		 * Sets the filename for input redirection.
+		 * Sets the filename for input redirection
 		 *
 		 * @param newInputRedirect a string specifying the input redirect filename
 		 */
 		void setInputRedirect(char *newInputRedirect);
 		
 		/**
-		 * Sets the filename for the output redirection.
+		 * Sets the filename for the output redirection
 		 *
 		 * @param newOutputRedirect a string specifying the input redirect filename
 		 */
@@ -72,7 +73,7 @@ class Param
 		void setBackground(int newBackground);
 		
 		/**
-		 * Returns the filename for input redirection.
+		 * Returns the filename for input redirection
 		 *
 		 * @return a string representing a filename
 		 */
@@ -93,7 +94,7 @@ class Param
 		int getBackground() const;
 	
 		/**
-		 * Prints the information in the specified structure to standard out.
+		 * Prints the information in the specified structure to standard out
          	 */
 		void printParams() const;
 };

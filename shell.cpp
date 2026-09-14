@@ -1,3 +1,12 @@
+/**
+ * Sets ups variables needed for the parsing and execution for the shell and run the main
+ * loop for running parsing input and running commands in the shell
+ *
+ * Brent Anderson and Cadence Phillips
+ * 09/14/2026
+ * COP4634
+ */
+
 #ifndef _SHELL_CPP
 #define _SHELL_CPP
 
@@ -74,9 +83,9 @@ void Shell::run()
 		}
 
 		/* Clean up to prevent memory leaks on additional shell commands */
-		//delete[] inputCString;
 		delete parser;
 		delete[] inputCString;
+
 		inputCString = nullptr;
 		parser = nullptr;
 		parameters = nullptr;
@@ -84,4 +93,5 @@ void Shell::run()
 	} while(true);
 	
 }
+
 #endif 

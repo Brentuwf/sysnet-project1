@@ -1,5 +1,5 @@
 /**
- * Parses and validates shell command input and stores the results in a Param object.
+ * Parses and validates shell command input and stores the results in a Param object
  *
  * Brent Anderson and Cadence Phillips
  * 09/14/2026
