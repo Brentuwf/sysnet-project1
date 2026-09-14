@@ -28,8 +28,8 @@ Param::Param()
 
 void Param::addArgument(char *newArgument)
 {
-	/* guard clause to prevent going out of bounds or overiding the string terminator*/
-	if (argumentCount >= MAXARGS -1)
+	/* guard clause to prevent going out of bounds or overiding the string terminator */
+	if (argumentCount >= MAXARGS)
 		throw std::out_of_range("Input tokens are greater than the maximum amount");
 
 	argumentVector[argumentCount] = newArgument;
