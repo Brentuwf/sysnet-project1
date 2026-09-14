@@ -19,8 +19,9 @@ int main(int argc, char **argv) {
 		shell = new Shell(argc, argv);
 		shell->run();
 		delete shell;
-	} catch (const std::exception &message) {
+	} catch (const std::runtime_error &message) {
 		std::cerr << message.what() << std::endl;
+		return EXIT_FAILURE;
 	}
 	return EXIT_SUCCESS;
 }
