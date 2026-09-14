@@ -17,6 +17,8 @@ Part II of the project will extend the shell so that it creates child processes,
 - `parse.hpp` - declares the `Parse` class and parser functions.
 - `param.cpp` - implements the `Param` class functions.
 - `param.hpp` - defines the `Param` class and `MAXARGS`.
+- 'process.hpp' -defines the process namespace function. will implement in part 2 for fork and execvp
+- 'process.cpp' - defines the process namespace. will implement in part 2 for fork and execvp
 - `Makefile` - compiles and links the project.
 - `README` - describes the project and its usage.
 
