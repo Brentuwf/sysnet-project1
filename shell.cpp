@@ -2,9 +2,10 @@
  * Sets ups variables needed for the parsing and execution for the shell and run the main
  * loop for running parsing input and running commands in the shell
  *
- * Brent Anderson and Cadence Phillips
- * 09/14/2026
- * COP4634
+ * @author Brent Anderson 
+ * @author Cadence Phillips
+ * @date 09/14/2026
+ * @info COP4634
  */
 
 #ifndef _SHELL_CPP

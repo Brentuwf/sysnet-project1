@@ -1,10 +1,12 @@
 /**
  * Stores and manages parsed shell command parameters, including arguments,
  * redirection filenames, background status, and debug output.
+ * Starter code modified by Brent Anderson
  *
- * Brent Anderson
- * 09/14/2026
- * COP4634
+ * @author Thomas Reichherzer
+ * @author Brent Anderson
+ * @date 09/14/2026
+ * @info COP4634
  */
 
 #ifndef _PARAM_CPP

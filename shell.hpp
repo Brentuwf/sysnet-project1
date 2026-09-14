@@ -1,9 +1,10 @@
 /**
  * Defines the Shell class used to set up and run the main loop for the shell 
  *
- * Brent Anderson and Cadence Phillips
- * 09/14/2026
- * COP4634
+ * @author Brent Anderson 
+ * @author Cadence Phillips
+ * @date 09/14/2026
+ * @info COP4634
  */
 
 #ifndef _SHELL_HPP

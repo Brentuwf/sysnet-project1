@@ -2,9 +2,9 @@
  * Simple command-line shell that parses user commands
  * and supports redirection, background execution, and debug output.
  *
- * Brent Anderson
- * 09/14/2026
- * COP4634
+ * @author Brent Anderson
+ * @date 09/14/2026
+ * @info COP4634
  */
 
 /*

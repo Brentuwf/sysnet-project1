@@ -1,9 +1,10 @@
 /**
  * Defines the Parse class used to validate and parse shell command input
  *
- * Brent Anderson and Cadence Phillips
- * 09/14/2026
- * COP4634
+ * @author Brent Anderson  
+ * @author Cadence Phillips
+ * @date 09/14/2026
+ * @info COP4634
  */
 
 #ifndef _PARSE_HPP
