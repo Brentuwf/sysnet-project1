@@ -16,6 +16,10 @@ namespace process
 	 * functions for fork, exec, and file redirections are going here
 	 * does not need memory allocation while use waitpid with WNOHANG to prevent zombies
 	 */
-}
+	/**
+	 * Registers sigchldHander to handle SIGCHLD signal from background child processes
+	 */
+	void setupSigchldHandler();
+};
 
 #endif
