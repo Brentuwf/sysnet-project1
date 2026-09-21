@@ -13,8 +13,30 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <csignal>
+#include <cerrno>
 
 #include "process.hpp"
+
+void process::sigchldHandler(int signo)
+{
+	/* removed warning for unused parameter */
+	(void)signo;
+
+	/* preserves error number */
+	int savedErrno = errno;  
+	pid_t pid;
+	int status;
+ 
+       	/* reaps terminated background child processes, out error message if child exited abnormally
+	 * uses write syscall instead of printf or cout to prevent locking of buffers 
+	 */ 
+	while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+		if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status))
+			write(STDERR_FILENO, "Background child exited abnormally\n", 36);
+	}
+
+	errno = savedErrno;  
+}
 
 void process::setupSigchldHandler()
 {
