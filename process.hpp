@@ -17,9 +17,17 @@ namespace process
 	 * does not need memory allocation while use waitpid with WNOHANG to prevent zombies
 	 */
 	/**
+	 * Signal handler for SIGCHLD
+	 * Reaps any terminated background child processes without blocking
+	 *
+	 * @param int representing signo, the signal number that triggered this handler
+	 */
+	void sigchldHandler(int signo);
+
+	/**
 	 * Registers sigchldHander to handle SIGCHLD signal from background child processes
 	 */
 	void setupSigchldHandler();
-};
+}
 
 #endif
