@@ -11,10 +11,14 @@
 #ifndef _SHELL_CPP
 #define _SHELL_CPP
 
+#include <unistd.h>
+#include <sys/wait.h>
 #include <stdexcept>
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <cstdio>
+#include <cstdlib>
 
 #include "shell.hpp"
 #include "parse.hpp"
@@ -47,7 +51,11 @@ void Shell::run()
 	char *inputCString = nullptr;
 	Parse *parser = nullptr;
 	Param *parameters = nullptr;
-
+	
+	char **argumentsVector = nullptr;
+	bool isBackground = false;
+	char *inputRedirectFile = nullptr;
+	char *outputRedirectFile = nullptr;
 		
 	do {
 		std::cout << "$$$ ";
@@ -72,12 +80,37 @@ void Shell::run()
 
 			/* Get the parsed command parameters */
 			parameters = parser->getParameters();
+			argumentsVector = parameters->getArguments();
+			inputRedirectFile = parameters->getInputRedirect();
+			outputRedirectFile = parameters->getOutputRedirect();
+			isBackground = parameters->getBackground();
 
 			/* Temporary Part I testing */
 			if (debugMode)
 				parameters->printParams();
 
-			// future logic for fork and execv/execvp
+			pid_t pid = fork();
+			
+			if (pid < 0)
+				throw std::runtime_error("failed to create new process");
+
+			if (pid == 0) {
+				//if (inputRedirectFile != nullptr)
+					// function call for file redirect
+
+				//if (outputRedirectFile != nullptr)
+					// function call for file redirect
+				
+				if (execvp(argumentsVector[0], argumentsVector) == -1 ) {
+					perror(argumentsVector[0]);
+					_exit(EXIT_FAILURE);
+				}
+			} else {
+				int status;
+				
+				if (waitpid(pid, &status, 0) == -1)
+					throw std::runtime_error("waitpid failed");
+			}
 		}
 		catch (const std::exception& message) {
 			std::cerr << message.what() << std::endl;
@@ -86,11 +119,15 @@ void Shell::run()
 		/* Clean up to prevent memory leaks on additional shell commands */
 		delete parser;
 		delete[] inputCString;
+		delete[] argumentsVector; 
 
 		inputCString = nullptr;
 		parser = nullptr;
 		parameters = nullptr;
-
+		argumentsVector = nullptr;
+		isBackground = false;
+		inputRedirectFile = nullptr;
+		outputRedirectFile = nullptr;
 	} while(true);
 	
 }
