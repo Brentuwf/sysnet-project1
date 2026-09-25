@@ -10,6 +10,7 @@
 /*
  * additionall includes from sys/ for fork/exec/and redirects
  */
+#include <stdexecpt>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <csignal>
@@ -46,5 +47,6 @@ void process::setupSigchldHandler()
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
  
-	sigaction(SIGCHLD, &sa, nullptr);
+	if (sigaction(SIGCHLD, &sa, nullptr) == -1)
+		throw std::runtime_error("failed to register SIGCHLD handler");
 }
