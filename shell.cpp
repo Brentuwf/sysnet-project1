@@ -108,8 +108,9 @@ void Shell::run()
 			} else {
 				int status;
 				
-				if (waitpid(pid, &status, 0) == -1)
-					throw std::runtime_error("waitpid failed");
+				if (!isBackground) 
+					if (waitpid(pid, &status, 0) == -1)
+						throw std::runtime_error("waitpid failed");
 			}
 		}
 		catch (const std::exception& message) {
