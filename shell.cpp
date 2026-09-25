@@ -23,6 +23,7 @@
 #include "shell.hpp"
 #include "parse.hpp"
 #include "param.hpp"
+#include "process.hpp"
 
 Shell::Shell(int argc, char **argv)
 {
@@ -56,7 +57,10 @@ void Shell::run()
 	bool isBackground = false;
 	char *inputRedirectFile = nullptr;
 	char *outputRedirectFile = nullptr;
-		
+	
+	/* handles waiting for background processes using signal handler */	
+	process::setupSigchldHandler();	
+
 	do {
 		std::cout << "$$$ ";
 		getline(std::cin, input);
