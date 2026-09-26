@@ -24,7 +24,7 @@
  * Waits for a specific foreground child process to terminate.
  * @param pid process ID of the child to wait for
  */
-void process::waitForProcess(pid_t pid)
+static void waitForProcess(pid_t pid)
 {
 	int status = 0;
 
@@ -44,6 +44,41 @@ void process::waitForProcess(pid_t pid)
 	}
 }
 
+static bool redirectInput(const char *inputFile)
+{
+	if (inputFile == nullptr)
+		return true;
+ 
+	if (std::freopen(inputFile, "r", stdin) == nullptr) {
+		std::fprintf(
+			     stderr,
+			     "Error: cannot redirect input from '%s': %s\n",
+			     inputFile,
+			     std::strerror(errno)
+		            );
+		return false;
+	}
+ 
+	return true;
+}
+
+static bool redirectOutput(const char *outputFile)
+{
+	if (outputFile == nullptr)
+		return true;
+
+	if (std::freopen(outputFile, "w", stdout) == nullptr) {
+		std::fprintf(
+			     stderr,
+			     "Error: cannot redirect output to '%s': %s\n",
+			     outputFile,
+			     std::strerror(errno)
+		            );
+		return false;
+	}
+
+	return true;
+}
 /**
  * Creates a child process and executes the command stored in Param.
  *
@@ -86,44 +121,21 @@ void process::executeCommand(const Param *parameters)
 		/*
 		 * Redirect standard input if an input filename was supplied.
 		 */
-		if (parameters->getInputRedirect() != nullptr) {
-
-			if (std::freopen(parameters->getInputRedirect(), "r", stdin) == nullptr) {
-				std::fprintf(
-					     stderr,
-					     "Error: cannot redirect input from '%s': %s\n",
-					     parameters->getInputRedirect(),
-					     std::strerror(errno)
-				           );
-
-				delete[] arguments;
-
-				/*
-				 * Use _exit() in the child so inherited parent
-				 * output buffers are not flushed a second time.
-				 */
-				_exit(EXIT_FAILURE);
-			}
+		if (!redirectInput(parameters->getInputRedirect())) {
+			delete[] arguments;
+			/*
+			 * Use _exit() in the child so inherited parent
+			 * output buffers are not flushed a second time.
+			 */
+			_exit(EXIT_FAILURE);
 		}
 
 		/*
 		 * Redirect standard output if an output filename was supplied.
-		 * "w" creates the file if necessary and truncates an existing file.
 		 */
-		if (parameters->getOutputRedirect() != nullptr) {
-
-			if (std::freopen(parameters->getOutputRedirect(), "w", stdout) == nullptr) {
-
-				std::fprintf(
-					     stderr,
-					     "Error: cannot redirect output to '%s': %s\n",
-					     parameters->getOutputRedirect(),
-					     std::strerror(errno)
-				            );
-
-				delete[] arguments;
-				_exit(EXIT_FAILURE);
-			}
+		if (!redirectOutput(parameters->getOutputRedirect())) {
+			delete[] arguments;
+			_exit(EXIT_FAILURE);
 		}
 
 		/*
