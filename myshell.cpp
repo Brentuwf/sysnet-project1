@@ -18,10 +18,11 @@ int main(int argc, char **argv) {
 	try {
 		shell = new Shell(argc, argv);
 		shell->run();
-		delete shell;
 	} catch (const std::runtime_error &message) {
 		std::cerr << message.what() << std::endl;
+		delete shell;
 		return EXIT_FAILURE;
 	}
+	delete shell;
 	return EXIT_SUCCESS;
 }
