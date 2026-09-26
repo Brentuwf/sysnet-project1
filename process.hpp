@@ -4,7 +4,7 @@
  *
  * @author Brent Anderson
  * @author Cadence Phillips
- * @date 09/14/2026
+ * @date 09/26/2026
  * @info COP4634
  */
 
@@ -29,6 +29,7 @@ namespace process
 	void waitForAllChildren();
 	/**
 	 * Registers sigchldHander to handle SIGCHLD signal from background child processes
+	 * @throw std::runtime_error if registering sigchld handler fails
 	 */
 	void setupSigchldHandler();
 }	
