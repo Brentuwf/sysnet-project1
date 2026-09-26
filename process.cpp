@@ -19,7 +19,43 @@
 
 #include "process.hpp"
 
+/**
+ * Signal handler for SIGCHLD
+ * Reaps any terminated background child processes without blocking
+ *
+ * @param int representing signo, the signal number that triggered this handler
+ */
+static void sigchldHandler(int signo)
+{
+	/* removed warning for unused parameter */
+	(void)signo;
 
+	/* preserves error number */
+	int savedErrno = errno;  
+	pid_t pid;
+	int status;
+ 
+       	/* reaps terminated background child processes, out error message if child exited abnormally
+	 * uses write syscall instead of printf or cout to prevent locking of buffers 
+	 */ 
+	while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+		if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status)) {
+			const char message[] = "Background child exited abnormally\n";
+			write(STDERR_FILENO, message, sizeof(message) - 1);
+		}
+	}
+	
+	/* guard clause for waitpid failing, ignores ECHILD errno as having no 
+	 * child processes to wait on is not an error condition for reaping background 
+	 * processes
+	 */
+	if (pid == -1 && errno != ECHILD) {
+        	const char message[] = "waitpid failed in SIGCHLD handler\n";
+        	write(STDERR_FILENO, message, sizeof(message) - 1);
+    	}
+
+	errno = savedErrno;  
+}
 /**
  * Waits for a specific foreground child process to terminate.
  * @param pid process ID of the child to wait for
@@ -195,38 +231,6 @@ void process::waitForAllChildren()
 			return;
 		}
 	}
-}
-
-void process::sigchldHandler(int signo)
-{
-	/* removed warning for unused parameter */
-	(void)signo;
-
-	/* preserves error number */
-	int savedErrno = errno;  
-	pid_t pid;
-	int status;
- 
-       	/* reaps terminated background child processes, out error message if child exited abnormally
-	 * uses write syscall instead of printf or cout to prevent locking of buffers 
-	 */ 
-	while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-		if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status)) {
-			const char message[] = "Background child exited abnormally\n";
-			write(STDERR_FILENO, message, sizeof(message) - 1);
-		}
-	}
-	
-	/* guard clause for waitpid failing, ignores ECHILD errno as having no 
-	 * child processes to wait on is not an error condition for reaping background 
-	 * processes
-	 */
-	if (pid == -1 && errno != ECHILD) {
-        	const char message[] = "waitpid failed in SIGCHLD handler\n";
-        	write(STDERR_FILENO, message, sizeof(message) - 1);
-    	}
-
-	errno = savedErrno;  
 }
 
 void process::setupSigchldHandler()
