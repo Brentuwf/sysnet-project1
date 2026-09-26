@@ -89,15 +89,7 @@ static bool redirectOutput(const char *outputFile)
 
 	return true;
 }
-/**
- * Creates a child process and executes the command stored in Param.
- *
- * The child performs any requested input/output redirection before
- * calling execvp(). The parent waits for foreground processes but
- * immediately returns for background processes.
- *
- * @param parameters pointer to the parsed command parameters
- */
+
 void process::executeCommand(const Param *parameters)
 {
 	if (parameters == nullptr) {
@@ -123,33 +115,27 @@ void process::executeCommand(const Param *parameters)
 		return;
 	}
 
-	/*
-	 * Child process
-	 */
+	/* Child process */
 	if (pid == 0) {
 
-		/*
-		 * Redirect standard input if an input filename was supplied.
-		 */
+		/* Redirect standard input if an input filename was supplied */
 		if (!redirectInput(parameters->getInputRedirect())) {
 			delete[] arguments;
 			/*
 			 * Use _exit() in the child so inherited parent
-			 * output buffers are not flushed a second time.
+			 * output buffers are not flushed a second time
 			 */
 			_exit(EXIT_FAILURE);
 		}
 
-		/*
-		 * Redirect standard output if an output filename was supplied.
-		 */
+		/* Redirect standard output if an output filename was supplied */
 		if (!redirectOutput(parameters->getOutputRedirect())) {
 			delete[] arguments;
 			_exit(EXIT_FAILURE);
 		}
 
 		/*
-		 * Execute the command.
+		 * Execute the command
 		 *
 		 * execvp() searches the PATH for commands such as ls, cat,
 		 * and grep. It also works with a pathname such as ./slow.
@@ -159,10 +145,7 @@ void process::executeCommand(const Param *parameters)
 		 */
 		execvp(arguments[0], arguments);
 
-		/*
-		 * Reaching this point means execvp failed.
-		 * This handles invalid commands such as "cqt".
-		 */
+		/* This handles invalid commands such as "cqt" */
 		std::fprintf(
 			stderr,
 			"Error: unable to execute '%s': %s\n",
@@ -192,11 +175,7 @@ void process::executeCommand(const Param *parameters)
 	if (parameters->getBackground() == 0)
 		waitForProcess(pid);
 }
-/**
- * Waits for all remaining child processes before the shell terminates.
- * This ensures that the parent shell does not exit while background
- * children are still running.
- */
+
 void process::waitForAllChildren()
 {
 	int status = 0;
