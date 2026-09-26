@@ -81,7 +81,7 @@ void Shell::run()
 
 			process::executeCommand(parameters);
 		}
-		catch (const std::exception& message) {
+		catch (const std::exception &message) {
 			std::cerr << message.what() << std::endl;
 		}
 

@@ -38,6 +38,7 @@ class Shell
 		Shell(int argc, char **argv);
 		/**
 		 * Contains the main loop for reading in user input, parsing, and executing commands
+		 * @throw std::runtime_error from setupSigchldHandler() if registering sigchld handler fails
 		 */
 		void run();
 };
