@@ -62,7 +62,7 @@ void executeCommand(const Param *parameters)
 		return;
 	}
 
-	char **arguments = parameters->getArguments(); //getArguments() creates a NULL-terminated argument array
+	char **arguments = parameters->getArguments(); 
 
 	/* A command must exist before attempting to fork/exec */
 	if ((arguments == nullptr) || (arguments[0] == nullptr)) {
@@ -90,15 +90,13 @@ void executeCommand(const Param *parameters)
 		 */
 		if (parameters->getInputRedirect() != nullptr) {
 
-			if (std::freopen(parameters->getInputRedirect(),
-			                "r",
-			                stdin) == nullptr) {
+			if (std::freopen(parameters->getInputRedirect(), "r", stdin) == nullptr) {
 				std::fprintf(
-					stderr,
-					"Error: cannot redirect input from '%s': %s\n",
-					parameters->getInputRedirect(),
-					std::strerror(errno)
-				);
+					     stderr,
+					     "Error: cannot redirect input from '%s': %s\n",
+					     parameters->getInputRedirect(),
+					     std::strerror(errno)
+				           );
 
 				delete[] arguments;
 
@@ -116,16 +114,14 @@ void executeCommand(const Param *parameters)
 		 */
 		if (parameters->getOutputRedirect() != nullptr) {
 
-			if (std::freopen(parameters->getOutputRedirect(),
-			                "w",
-			                stdout) == nullptr) {
+			if (std::freopen(parameters->getOutputRedirect(), "w", stdout) == nullptr) {
 
 				std::fprintf(
-					stderr,
-					"Error: cannot redirect output to '%s': %s\n",
-					parameters->getOutputRedirect(),
-					std::strerror(errno)
-				);
+					     stderr,
+					     "Error: cannot redirect output to '%s': %s\n",
+					     parameters->getOutputRedirect(),
+					     std::strerror(errno)
+				            );
 
 				delete[] arguments;
 				_exit(EXIT_FAILURE);
