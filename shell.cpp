@@ -19,6 +19,7 @@
 #include "shell.hpp"
 #include "parse.hpp"
 #include "param.hpp"
+#include "process.hpp"
 
 Shell::Shell(int argc, char **argv)
 {
@@ -77,7 +78,7 @@ void Shell::run()
 			if (debugMode)
 				parameters->printParams();
 
-			// future logic for fork and execv/execvp
+			process::executeCommand(parameters);
 		}
 		catch (const std::exception& message) {
 			std::cerr << message.what() << std::endl;
@@ -92,7 +93,7 @@ void Shell::run()
 		parameters = nullptr;
 
 	} while(true);
-	
+	process::waitForAllChildren();
 }
 
 #endif 
