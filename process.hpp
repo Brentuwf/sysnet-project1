@@ -15,7 +15,6 @@
 
 namespace process
 {
-	void waitForProcess(pid_t pid);
 	 /**
 	 * Creates a child process and executes the command stored in Param.
 	 * Handles input/output redirection and foreground/background execution.
