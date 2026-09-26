@@ -43,7 +43,12 @@ static void waitForProcess(pid_t pid)
 		return;
 	}
 }
-
+/**
+ * Handles input file redirects
+ * @param const char* the name for the inputFile 
+ *
+ * @return bool true if input file name is null or freopen succeeds, false if freopen fails 
+ */
 static bool redirectInput(const char *inputFile)
 {
 	if (inputFile == nullptr)
@@ -61,7 +66,12 @@ static bool redirectInput(const char *inputFile)
  
 	return true;
 }
-
+/**
+ * Handles output file redirects
+ * @param const char* the name for the output file 
+ *
+ * @return bool true if output file name is null or freopen succeeds, false if freopen fails 
+ */
 static bool redirectOutput(const char *outputFile)
 {
 	if (outputFile == nullptr)
