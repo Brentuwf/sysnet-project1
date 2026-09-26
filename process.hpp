@@ -15,6 +15,7 @@
 
 namespace process
 {
+	void waitForProcess(pid_t pid);
 	 /**
 	 * Creates a child process and executes the command stored in Param.
 	 * Handles input/output redirection and foreground/background execution.
@@ -27,6 +28,18 @@ namespace process
 	 * Used before the shell exits.
 	 */
 	void waitForAllChildren();
+	/**
+	 * Signal handler for SIGCHLD
+	 * Reaps any terminated background child processes without blocking
+	 *
+	 * @param int representing signo, the signal number that triggered this handler
+	 */
+	void sigchldHandler(int signo);
+
+	/**
+	 * Registers sigchldHander to handle SIGCHLD signal from background child processes
+	 */
+	void setupSigchldHandler();
 }	
 
 #endif

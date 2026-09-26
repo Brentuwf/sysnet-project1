@@ -12,21 +12,19 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-
+#include <stdexcept>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
 #include "process.hpp"
 
-namespace process
-{
 
 /**
  * Waits for a specific foreground child process to terminate.
  * @param pid process ID of the child to wait for
  */
-static void waitForProcess(pid_t pid)
+void process::waitForProcess(pid_t pid)
 {
 	int status = 0;
 
@@ -55,7 +53,7 @@ static void waitForProcess(pid_t pid)
  *
  * @param parameters pointer to the parsed command parameters
  */
-void executeCommand(const Param *parameters)
+void process::executeCommand(const Param *parameters)
 {
 	if (parameters == nullptr) {
 		std::fprintf(stderr, "Error: command parameters are NULL\n");
@@ -177,7 +175,7 @@ void executeCommand(const Param *parameters)
  * This ensures that the parent shell does not exit while background
  * children are still running.
  */
-void waitForAllChildren()
+void process::waitForAllChildren()
 {
 	int status = 0;
 
@@ -198,4 +196,46 @@ void waitForAllChildren()
 	}
 }
 
+void process::sigchldHandler(int signo)
+{
+	/* removed warning for unused parameter */
+	(void)signo;
+
+	/* preserves error number */
+	int savedErrno = errno;  
+	pid_t pid;
+	int status;
+ 
+       	/* reaps terminated background child processes, out error message if child exited abnormally
+	 * uses write syscall instead of printf or cout to prevent locking of buffers 
+	 */ 
+	while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+		if ((WIFEXITED(status) && WEXITSTATUS(status) != 0) || WIFSIGNALED(status)) {
+			const char message[] = "Background child exited abnormally\n";
+			write(STDERR_FILENO, message, sizeof(message) - 1);
+		}
+	}
+	
+	/* guard clause for waitpid failing, ignores ECHILD errno as having no 
+	 * child processes to wait on is not an error condition for reaping background 
+	 * processes
+	 */
+	if (pid == -1 && errno != ECHILD) {
+        	const char message[] = "waitpid failed in SIGCHLD handler\n";
+        	write(STDERR_FILENO, message, sizeof(message) - 1);
+    	}
+
+	errno = savedErrno;  
+}
+
+void process::setupSigchldHandler()
+{
+	struct sigaction sa;
+
+	sa.sa_handler = sigchldHandler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+ 
+	if (sigaction(SIGCHLD, &sa, nullptr) == -1)
+		throw std::runtime_error("failed to register SIGCHLD handler");
 }

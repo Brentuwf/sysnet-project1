@@ -49,6 +49,7 @@ void Shell::run()
 	Parse *parser = nullptr;
 	Param *parameters = nullptr;
 
+	process::setupSigchldHandler();
 		
 	do {
 		std::cout << "$$$ ";
