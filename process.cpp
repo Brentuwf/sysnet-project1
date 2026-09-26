@@ -9,6 +9,7 @@
  */
 
 #include <cerrno>
+#include <csignal>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -141,6 +142,14 @@ void process::executeCommand(const Param *parameters)
 		delete[] arguments;
 		return;
 	}
+	/*
+	 * Block SIGCHLD for the duration of fork and the foreground wait
+	 * to prevent sigchldHandler() from reaping foreground processes
+	 */ 
+	sigset_t sigchldSet, oldSet;
+   	sigemptyset(&sigchldSet);
+   	sigaddset(&sigchldSet, SIGCHLD);
+   	sigprocmask(SIG_BLOCK, &sigchldSet, &oldSet);
 
 	/* Create the child process */
 	pid_t pid = fork();
@@ -148,6 +157,8 @@ void process::executeCommand(const Param *parameters)
 	if (pid < 0) {
 		std::perror("fork");
 		delete[] arguments;
+		/* unsets SIGCHLD block on fork fail */ 
+		sigprocmask(SIG_SETMASK, &oldSet, nullptr);
 		return;
 	}
 
@@ -210,6 +221,9 @@ void process::executeCommand(const Param *parameters)
 	 */
 	if (parameters->getBackground() == 0)
 		waitForProcess(pid);
+
+	/* unsets SIGCHLD block once foreground processes has been waited on */ 
+	sigprocmask(SIG_SETMASK, &oldSet, nullptr);
 }
 
 void process::waitForAllChildren()
