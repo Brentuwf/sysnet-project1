@@ -173,29 +173,6 @@ void executeCommand(const Param *parameters)
 		waitForProcess(pid);
 }
 /**
- * Reaps any background processes that have already terminated.
- * WNOHANG prevents this function from blocking while children
- * are still running.
- */
-void reapBackgroundProcesses()
-{
-	int status = 0;
-
-	while (true) {
-		pid_t result = waitpid(-1, &status, WNOHANG);
-		if (result > 0)
-			continue;
-		if (result == 0)
-			return;
-		if ((result == -1) && (errno == EINTR))
-			continue;
-		if ((result == -1) && (errno != ECHILD))
-			std::perror("waitpid");
-
-		return;
-	}
-}
-/**
  * Waits for all remaining child processes before the shell terminates.
  * This ensures that the parent shell does not exit while background
  * children are still running.

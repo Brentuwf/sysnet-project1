@@ -15,23 +15,18 @@
 
 namespace process
 {
-	void executeCommand(const Param *parameters);
 	 /**
 	 * Creates a child process and executes the command stored in Param.
 	 * Handles input/output redirection and foreground/background execution.
 	 *
 	 * @param parameters pointer to the parsed command parameters
 	 */
-	void reapBackgroundProcesses();
-	 /**
-	 * Checks for terminated background child processes and reaps them
-	 * without blocking the shell.
-	 */
-	void waitForAllChildren();
+	void executeCommand(const Param *parameters);
 	 /**
 	 * Waits for all remaining child processes to terminate.
 	 * Used before the shell exits.
 	 */
+	void waitForAllChildren();
 }	
 
 #endif
