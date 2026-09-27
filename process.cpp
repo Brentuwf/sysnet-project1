@@ -20,6 +20,7 @@
 
 #include "process.hpp"
 
+/* helper functions below, marked static to prevent being used outside of cpp file */
 /**
  * Signal handler for SIGCHLD
  * Reaps any terminated background child processes without blocking
@@ -126,7 +127,7 @@ static bool redirectOutput(const char *outputFile)
 
 	return true;
 }
-
+/* Public interface functions */
 void process::executeCommand(const Param *parameters)
 {
 	if (parameters == nullptr) {
